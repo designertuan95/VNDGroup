@@ -1,0 +1,149 @@
+<?php
+$_formObj   = $this->_formObj;
+
+
+$arrForm = array(
+    array(
+        'Start_Layout' => '<div class="col-lg-8 col-sm-6 col-xs-12">',
+        'Widget' => array(
+            array(
+                'Start_Widget'   => '<div class="widget"><div class="widget-body">',
+                'Content_Widget' => array(
+                    // Box Search
+                   array(
+                        'Content_Box' => '<div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                <label>Họ đệm</label>
+                                 '.$this->formInput($_formObj->get('lastname')).'
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>Tên</label>'.$this->formInput($_formObj->get('firstname')).'
+                                </div>
+                            </div>
+                        </div>',
+                    ),
+                    array(
+                        'Content_Box' => '<div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                <label>Email</label>'.$this->formInput($_formObj->get('email')).'
+                            </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>Số điện thoại</label>'.$this->formInput($_formObj->get('telephone')).'
+                                </div>
+                            </div>
+                        </div>',
+                    ),
+                    array(
+                        'Content_Box' => '<div class="form-group">
+                               <div class="checkbox"><label class="radio">'.$this->formCheckbox($_formObj->get('accepts_marketing')).' Khách hàng chấp nhận tiếp thị</label></div>
+                            </div>',
+                    ),
+                 
+                ),
+                'End_Widget'     => '</div></div>',
+            ),
+            array(
+                'Start_Widget'   => '<div class="widget"><div class="widget-body">',
+                'Content_Widget' => array(
+                    // Box Search
+                  array(
+                    'Content_Box' => '<div class="form-group">
+                                <label>Địa chỉ</label>
+                                '.$this->formInput($_formObj->get('address')).'
+                            </div>',
+                  ),
+                  array(
+                      'Content_Box' => '<div class="row">
+                          <div class="col-sm-6">
+                              <div class="form-group">
+                              <label>Quốc Gia</label>
+                              '.$this->formSelect($_formObj->get('city')).'
+                            </div>
+                          </div>
+                          <div class="col-sm-6">
+                              <div class="form-group">
+                              <label>Postal / Zip Code</label>'.$this->formInput($_formObj->get('address_zip')).'
+                            </div>
+                          </div>
+                      </div>',
+                  ),
+                 array(
+                      'Content_Box' => '<div class="row">
+                          <div class="col-sm-6">
+                              <div class="form-group">
+                              <label>Tỉnh/Thành phố</label>
+                              '.$this->formSelect($_formObj->get('city')).'
+                            </div>
+                          </div>
+                          <div class="col-sm-6">
+                              <div class="form-group">
+                              <label>Quận/Huyện</label>'.$this->formSelect($_formObj->get('district')).'
+                            </div>
+                          </div>
+                      </div>',
+                  ),
+                  array (
+                        'Content_Box' => '<div class="form-group">
+                                            <label class="text-no-bold"><label for="note">Ghi chú</label></label>
+                                            ' . $this->formTextarea ($_formObj->get( 'note' )) . '
+                                        </div>' 
+                    ),
+                 
+                ),
+                'End_Widget'     => '</div></div>',
+            ),
+          
+        ),
+        'End_Layout' => '</div>'
+    ),
+   
+    array(
+        'Start_Layout' => '<div class="col-lg-4 col-sm-6 col-xs-12">',
+        'Widget' => array(
+            array(
+                'Start_Widget'   => '<div class="widget"><div class="widget-body">',
+                'Content_Widget' => array(
+                    // Box Search
+                    array(
+                        'Content_Box' => '<label class="title-product-main text-no-bold block-display mb20 form-title">Trạng thái</label><div class="form-group">
+                                    <div class="radio">'.$this->formRadio($_formObj->get('status')).'</div>
+                                    <div class="radio"></div>
+                            </div>',
+                    ),
+                ),
+                'End_Widget'     => '</div></div>',
+            ),
+            array(
+                'Start_Widget' => '<div class="widget"><div class="widget-body"><label class="title-product-main text-no-bold block-display text-center mb20 form-title">Hoàn thiện thêm khách hàng</label>',
+                'Content_Widget' => array(
+                    array(
+                        'Content_Box' => '<div class=" text-center">'.$this->formButton($_formObj->get('save')).'</div>',
+                    ),
+                ),
+                'End_Widget' => '</div></div>'
+            ),
+        ),
+        'End_Layout' => '</div>'
+    ),
+);
+$FormObj = new \VND\ViewHelper\FormView($arrForm,array('type'=>'Admin'));
+
+?>
+<div class="page-body">
+    <div class="row">
+  <div class="col-lg-12 col-sm-12 col-xs-12">
+    <div class="row">
+      <form method="POST" enctype="multipart/form-data" id="validator">
+<?php
+
+    echo $FormObj->xHtml;
+?>
+</div></div></div>
+</form>
+</div>

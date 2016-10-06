@@ -1,0 +1,186 @@
+<style type="text/css">
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+    vertical-align: middle;
+}
+#collections{
+	position:relative;
+}
+ul.innerHtml {
+    background: #fff;
+    min-height: 200px;
+    padding: 0;
+    border-radius: 0 !important;
+    border: 1px solid #ddd;
+    position: absolute;
+    z-index: 9999;
+    width: 96.5%;
+    margin-top: 0;
+    border-top: 0;
+}ul.innerHtml li {
+    overflow: hidden;
+    border-bottom: 1px solid #ddd;
+    padding: 6px;
+    list-style: none;
+    cursor: pointer;
+}li.item:hover {
+    background: #f3f3f3;
+}li.item:last-child{
+	border-bottom:0px
+}input[name=search_product] {
+    border-radius: 0 !important;
+}#showLineItem {
+    min-height: 200px;
+    border: 1px solid #ddd;
+    margin-top: -4px;
+}
+</style>
+<?php
+$_formObj   = $this->_formObj;
+$xHtmlPrd = '';
+foreach($this->prdInfo as $prd){
+	$imgThumb = str_replace("/public/media/products/images/","/public/media/products/thumb/small/100.100_",$prd->image);
+	$xHtmlPrd .= '<tr class="line_item_0 variant_id_45"><td><div class="thumb">
+		<img alt="" class="block aspect-ratio__content" src="'.$imgThumb.'"></div></td>
+		<td width="100%" style=" vertical-align: top;"><div class="title">
+		<a target="_blank" href="/admin/products/edit/45">'.$prd->product_name.'</a></div></td>
+		<input type="hidden" name="product_id[]" value="'.$prd->product_id.'"></tr>'; 
+}
+$arrForm = array(
+    array(
+        'Start_Layout' => '<div class="col-lg-8 col-sm-6 col-xs-12">',
+        'Widget' => array(
+            array(
+                'Start_Widget'   => '<div class="widget"><div class="widget-body"><label class="title-product-main text-no-bold mb20">Tạo mã khuyến mãi</label>',
+                'Content_Widget' => array(
+                    // Box Search
+                    array(
+                        'Content_Box' => '<p class="mb0">Tên chương trình khuyến mãi</p><div class="form-group">
+                                          '.$this->formInput($_formObj->get('name')).'
+                                        </div>
+                    					<p class="mb0  pull-left">Mã giảm giá</p><button type="button" class="btn-change-link pull-right" onclick="Discount.generateCode()">Tạo mã tự động</button>
+                    					<div class="form-group">
+                                          '.$this->formInput($_formObj->get('code')).'
+                                        </div>
+                    					',
+                    ),
+               
+                	array(
+                		'Content_Box' => '<div class="pd-t-20 margin-top-20 border-top-title-main" id="apply_promotion">
+                                <div class="row">
+                                  <div class="col-lg-12 padding-right-10">
+                					<div class="form-group no-margin-bottom" id="products">
+                			<label>Chọn sản phẩm</label>
+                                            <span class="input-icon">
+                							'.$this->formInput($_formObj->get('search_product')).'
+                							<i class="glyphicon glyphicon-search blue"></i></span>
+                							<div id="showProduct"></div>
+                                    </div>
+                							<div class="table-wrapper p-none margin-bottom-10" id="showLineItem">
+				                                <div class="table-responsive">
+				                                    <table class="table" id="listItem">
+				                                        <tbody>'.$xHtmlPrd.'
+				                                        </tbody>
+				                                    </table>
+				                                </div>
+                							</div>
+                                 	<div class="form-group" id="collections">
+                                              <label class="text-no-bold"><label for="producer">Danh mục sản phẩm</label></label>
+                                            '.$this->formSelect($_formObj->get('category')).'
+                                      </div>
+                					  
+                                  </div>
+                 
+                                </div>
+                            </div>'
+                	),
+                    array(
+                        'Content_Box' => '<div class="pd-t-20 border-top-title-main">
+                            <label class="title-product-main text-no-bold mb20">Loại khuyến mãi</label>
+                                <div class="row">
+                                  <div class="col-lg-3 padding-right-10">
+                                 '.$this->formLabel($_formObj->get('type')).$this->formSelect($_formObj->get('type')).'
+                                  </div>
+                                  <div class="col-lg-3 col-sm-3 col-xs-3 no-padding padding-right-10">
+                                  '.$this->formLabel($_formObj->get('discount')).$this->formInput($_formObj->get('discount')).'
+                                  </div>
+                                  <div class="col-lg-6 col-sm-3 col-xs-3 no-padding padding-right-10">
+                                  '.$this->formLabel($_formObj->get('discount_usage_limit')).$this->formInput($_formObj->get('discount_usage_limit')).'
+                                  </div>
+                                </div>
+                            </div>'
+                    ),
+                	
+                ),
+                'End_Widget'     => '</div></div>',
+            ),
+        ),
+        'End_Layout' => '</div>'
+    ),
+    array(
+        'Start_Layout' => '<div class="col-lg-4 col-sm-6 col-xs-12">',
+        'Widget' => array(
+            array(
+                'Start_Widget'   => '<div class="widget"><div class="widget-body"><div class="pd-t-20 border-top-title-main">
+                                <label class="title-product-main text-no-bold block-display mb20" for="exampleInputEmail2">Thời gian khuyến mãi</label>',
+                'Content_Widget' => array(
+                    array(
+                        'Content_Box' => '<div class="form-group">'.$this->formLabel($_formObj->get('date_start')).'<span class="input-icon icon-right">
+                                            '.$this->formInput($_formObj->get('date_start')).'
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                           
+                                         </div>',
+                    ),
+                    array(
+                        'Content_Box' => '<div class="form-group">'.$this->formLabel($_formObj->get('date_end')).'<span class="input-icon icon-right">
+                                            '.$this->formInput($_formObj->get('date_end')).'
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                           
+                                         </div>',
+                    ),
+                    array(
+                        'Content_Box' => '<div class="form-group">
+				                                <div class="checkbox"><label class="radio">'.$this->formCheckbox($_formObj->get('never_expire')).' Không bao giờ hết hạn</label></div>
+				                            </div>',
+	                    ),
+                ),
+                'End_Widget'     => '</div></div></div>',
+            ),
+            array(
+                'Start_Widget'   => '<div class="widget"><div class="widget-body">',
+                'Content_Widget' => array(
+                    // Box Search
+                    array(
+                        'Content_Box' => '<label class="title-product-main text-no-bold block-display text-center ">Hoàn thiện</label><div class="pd-t-20 border-top-title-main text-center">'.$this->formButton($_formObj->get('save_and_new')).' '.$this->formButton($_formObj->get('save')).'</div>',
+                    ),
+                ),
+                'End_Widget'     => '</div></div>',
+            ),
+        ),
+        'End_Layout' => '</div>'
+    ),
+);
+$FormObj = new \VND\ViewHelper\FormView($arrForm,array('type'=>'Admin'));
+?>
+<style type="text/css">
+    .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+        padding: 8px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+        vertical-align: middle;
+    }
+
+</style>
+<div class="page-body">
+<div class="row">
+<form method="POST" action="">
+<?php echo $FormObj->xHtml; ?>
+</form>
+</div>
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 

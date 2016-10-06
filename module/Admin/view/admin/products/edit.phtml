@@ -1,0 +1,270 @@
+<?php
+
+$xHtmlAlbum = '';
+$xHtmlImg = '';
+foreach ( $this->img ['albumImages'] as $image ) {
+	$xHtmlAlbum .= '<li class="product-photo-item ui-sortable-handle" id="product-image-' . $image ['product_image_id'] . '">
+                    <div class="product-image next-media-square-aspect-ratio">
+                        <img class="media-image image-align-middle" src="' . $image ['image'] . '">
+                        <div class="product-photo-hover-overlay drag">
+                            <div class="image-option-tools"><a class="image-action tooltip tooltip-bottom" onclick="ImageObj.showDeleteProductImageModal(' . $image ['product_id'] . ',' . $image ['product_image_id'] . ',' .'\''. $image ['image'] .'\''. ')" href="javascript:void(0);"><i class="fa fa-trash-o"></i></a></div>
+                        </div>
+                        <input type="hidden" name="image[]" value="' . $image ['image'] . '">
+                    </div>
+                </li>';
+}
+if (! empty ( $this->img ['image'] )) {
+	$xHtmlImg = '<li class="product-photo-item ui-sortable-handle" id="product-image-0">
+                        <div class="product-image next-media-square-aspect-ratio">
+                            <img class="media-image image-align-middle" src="' . $this->img ['image'] . '">
+                            <div class="product-photo-hover-overlay drag">
+                            	<div class="image-option-tools"><a class="image-action tooltip tooltip-bottom" onclick="ImageObj.showDeleteProductImageModal('.$this->id.',0,' .'\''. $this->img ['image'].'\''. ')" href="javascript:void(0);"><i class="fa fa-trash-o"></i></a></div>
+                        	</div>
+                            <input type="hidden" name="image[]" value="' . $this->img ['image'] . '">
+                        </div>
+                    </li>
+                    ' . $xHtmlAlbum . ' ';
+}
+
+$_formObj = $this->_formObj;
+$arrForm = array (
+		array (
+				'Start_Layout' => '<div class="col-lg-8 col-sm-6 col-xs-12">',
+				'Widget' => array (
+						array (
+								'Start_Widget' => '<div class="widget"><div class="widget-body">',
+								'Content_Widget' => array (
+										// Box Search
+										array (
+												'Content_Box' => '<div class="form-group">
+                                            ' . $this->formLabel ( $_formObj->get ( 'product_name' ) ) . $this->formInput ( $_formObj->get ( 'product_name' ) ) . '
+                                        </div>' 
+										),
+										// BOx List Item
+										array (
+												'Content_Box' => '<div class="form-group">
+                                            <label class="text-no-bold"><label for="describe">Mô tả</label></label>
+                                            ' . $this->formTextarea ( $_formObj->get ( 'describe' ) ) . '
+                                        </div>' 
+										),
+										array (
+												'Content_Box' => '<div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                       ' . $this->formLabel ( $_formObj->get ( 'model' ) ) . '
+                                                       <span class="note block-display"> Dùng để xác định các sản phẩm có cùng Model</span>
+                                                    <div class="controls">
+                                                    ' . $this->formInput ( $_formObj->get ( 'model' ) ) . '
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                 <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        ' . $this->formLabel ( $_formObj->get ( 'SKU' ) ) . '
+                                                        <span class="note block-display"> Dùng để khách hàng đặt hàng theo mã sản phẩm</span>
+                                                        ' . $this->formInput ( $_formObj->get ( 'SKU' ) ) . '
+                                                    </div>
+
+                                                </div>
+                                        </div>' 
+										) 
+								),
+								'End_Widget' => '</div></div>' 
+						),
+						array (
+								'Start_Widget' => '<div class="widget"><div class="widget-body">',
+								'Content_Widget' => array (
+										// Box Search
+										array (
+												'Content_Box' => '<div class="form-group" style="position: relative;">
+                            <label class="text-no-bold">Hình ảnh</label>
+                            <button id="openAlbumImage" type="button" class="btn-change-link pull-right" style="position: relative; z-index: 1;" role="albumImages[]">Album hình</button>
+                            ' . $this->formFile ( $_formObj->get ( 'albumImages' ) ) . '
+                            <div class="images upload-image-wrapper"><ol id="product-images" class="product-photo-grid clearfix ui-sortable dragable-product-images">
+                            ' . $xHtmlImg . '
+                            </ol>
+                            </div> </div>' 
+										) 
+								),
+								'End_Widget' => '</div></div>' 
+						),
+						array (
+								'Start_Widget' => '<div class="widget"><div class="widget-body">',
+								'Content_Widget' => array (
+										// Box Search
+										array (
+												'Content_Box' => '<label class="title-product-main text-no-bold block-display mb20">Giá sản phẩm</label><div class="pd-t-20 p-b5 border-top-title-main"><div class="clearfix"><div class="form-group col-sm-6 p-none-l mb15">
+                                            <label class="text-no-bold"><label for="price">Giá</label></label>
+                                            ' . $this->formInput ( $_formObj->get ( 'price' ) ) . '
+                                        </div><div class="form-group col-sm-6 p-none-l mb15">
+                                            <label for="listed_price">Giá so sánh</label>
+                                            ' . $this->formInput ( $_formObj->get ( 'listed_price' ) ) . '
+                                        </div></div></div>' 
+										),
+										// BOx List Item
+										array (
+												'Content_Box' => '<label class="title-product-main text-no-bold block-display mb20">Tồn kho</label><div class="pd-t-20 p-b5 border-top-title-main"><div class="clearfix">
+                                        
+                                        <div class="form-group col-sm-6">
+                                            <label class="text-no-bold"><label for="inventory_policy">Chính sách tồn kho</label></label>
+                                            ' . $this->formSelect ( $_formObj->get ( 'inventory_policy' ) ) . '
+                                        </div>
+                                        <div class="form-group col-sm-6 p-none-l mb15 hide" id="Quantity">
+                                            <label class="text-no-bold"><label for="quantity">Số lượng</label></label>
+                                            ' . $this->formInput ( $_formObj->get ( 'quantity' ) ) . '
+                                        </div>
+                                        <div class="form-group col-sm-6 p-none-l mb15 ">
+                                            <label class="text-no-bold"><label for="Barcode">BarCode</label></label>
+                                            ' . $this->formInput ( $_formObj->get ( 'Barcode' ) ) . '
+                                        </div></div></div>' 
+										) 
+								),
+								'End_Widget' => '</div></div>' 
+						),
+						array (
+								'Start_Widget' => '<div class="widget"><div class="widget-body"><label class="title-product-main text-no-bold block-display mb20">Cài đặt nâng cao</label>',
+								'Content_Widget' => array (
+										// Box Search
+										array (
+												'Content_Box' => '<div class="form-group">
+                                            <label class="text-no-bold"><label for="group_product">Bộ lọc</label>
+												<span class="note block-display"> Dùng để lọc và tìm kiếm sản phẩm nâng cao</span>
+												</label>
+                                            ' . $this->formSelect($_formObj->get('filter_id'))
+												.$this->ElementError($_formObj->get('filter_id')).'
+                                        </div>' 
+										) 
+								),
+								'End_Widget' => '</div></div>' 
+						),
+						
+						array (
+								'Start_Widget' => '<div class="widget"><div class="widget-body">',
+								'Content_Widget' => array (
+										// Box Search
+										array (
+												'Content_Box' => '<label class="title-product-main text-no-bold mb20">Tối ưu SEO</label><p class="mb0">Thiết lập các thẻ mô tả giúp khách hàng dễ dàng tìm thấy sản phẩm trên công cụ tìm kiếm như Google.</p><div class="pd-t-20 border-top-title-main" data-bind="visible:IsShowSEOSetting"><div class="pd-t-20 ps-relative"><div class="form-group">
+                                            <label for="meta_title">Tiêu đề trang</label>
+                                            ' . $this->formInput ( $_formObj->get ( 'meta_title' ) ) . '
+                                        </div><div class="form-group">
+                                            <label for="meta_description">Mô tả trang</label>
+                                            ' . $this->formTextarea ( $_formObj->get ( 'meta_description' ) ) . '
+                                        </div><div class="form-group">
+                                           
+                                        <label for="alias">Đường dẫn</label>
+                                        <a href="https://docs.haravan.com/blogs/co-ban/1000019770-handle" target="_blank">
+                                            <i class="hover-tooltip glyphicon glyphicon-question-sign note"></i>
+                                        </a>
+                                            <div class="input-group">
+                                        <span class="input-group-addon drop-price-addon border-color-input-group" data-bind="text: ProductDetail().PrefixUrl">http://vndgroup-zf2/products/</span>
+                                       ' . $this->formInput ( $_formObj->get ( 'alias' ) ) . '
+                                    </div>
+                                        </div></div></div>' 
+										) 
+								),
+								'End_Widget' => '</div></div>' 
+						) 
+				),
+				'End_Layout' => '</div>' 
+		),
+		
+		array (
+				'Start_Layout' => '<div class="col-lg-4 col-sm-6 col-xs-12">',
+				'Widget' => array (
+						array (
+								'Start_Widget' => '<div class="widget"><div class="widget-body"><label class="title-product-main text-no-bold block-display " for="exampleInputEmail2">Phân loại</label>',
+								'Content_Widget' => array (
+										// Box Search
+										
+										array (
+												'Content_Box' => '<div class="form-group">
+                                            <label class="text-no-bold"><label for="classify">Danh mục sản phẩm</label></label>
+                                            ' . $this->formSelect ( $_formObj->get ( 'category' ) ) . '
+                                        </div>' 
+										),
+										// BOx List Item
+										array (
+												'Content_Box' => '<div class="form-group">
+                                              <label class="text-no-bold"><label for="producer">Nhà sản xuất</label></label>
+                                             ' . $this->formSelect ( $_formObj->get ( 'producer_id' ) ) . '
+                                          </div>' 
+										),
+										
+										array (
+												'Content_Box' => '<div class="pd-t-20 border-top-title-main"><div class="form-group">
+                                            <label class="text-no-bold"><label for="group_product">Nhóm sản phẩm</label><span class="note block-display"> Dùng để cho phép hiển thị sản phẩm theo nhóm</span></label>
+                                            ' . $this->formSelect ( $_formObj->get ( 'group_product' ) ) . '
+                                        </div></div>' 
+										) 
+								),
+								'End_Widget' => '</div></div>' 
+						),
+						array (
+								'Start_Widget' => '<div class="widget"><div class="widget-body"><label class="title-product-main text-no-bold block-display text-center mb20">Hoàn thiện đăng sản phẩm</label>',
+								'Content_Widget' => array (
+										array (
+												'Content_Box' => '<div class="pd-t-20 border-top-title-main text-center">' . $this->formButton ( $_formObj->get ( 'save_and_new' ) ) . ' ' . $this->formButton ( $_formObj->get ( 'save' ) ) . '</div>' 
+										) 
+								),
+								'End_Widget' => '</div></div>' 
+						) 
+				),
+				'End_Layout' => '</div>' 
+		) 
+);
+$FormObj = new \VND\ViewHelper\FormView ( $arrForm, array (
+		'type' => 'Admin' 
+) );
+
+?>
+<div class="page-body">
+<?php  
+echo $this->FlashMessenger()->render('error',array('alert','alert-danger'));
+echo $this->FlashMessenger()->render('success',array('alert','alert-success fade in'));
+?>
+	<div class="row">
+		<div class="col-lg-12 col-sm-12 col-xs-12">
+			<div class="row">
+				<form method="POST" enctype="multipart/form-data" id="validator">
+         <?php echo $FormObj->xHtml; ?>
+            
+        </form>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="deleteProductImageModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button aria-hidden="true" data-dismiss="modal" class="close"
+					type="button"></button>
+				<h4 class="modal-title">Bạn có muốn xóa ảnh sản phẩm này?</h4>
+			</div>
+			<div class="modal-body product-option-edit">
+				<p>Thao tác này sẽ xóa ảnh sản phẩm này của bạn. Thao tác này không
+					thể khôi phục.</p>
+				<form class="form-delete-product-image">
+					<input type="hidden" name="productId" value="" /> 
+					<input type="hidden" name="productImageId" value="" />
+					<input type="hidden" name="imgLink" value="" />
+				</form>
+			</div>
+			<div class="modal-footer">
+				<div class="form-actions row">
+					<div class="col-sm-5 pull-right text-right">
+						<button class="btn btn-default btn-back close-modal"
+							data-dismiss="modal" type="button">Hủy</button>
+						<button class="btn btn-danger" type="button"
+							onclick="deleteProductImage()">Xóa</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<button type="button" data-toggle="modal"
+	data-target="#deleteProductImageModal" id="deleteProductImageModal"
+	class="btn btn-blue hide">Open Delete Image</button>

@@ -1,0 +1,70 @@
+<form method="post" action="">
+<div class="page-body">
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="row">
+            <div class="col-lg-8 col-sm-6 col-xs-12"><div class="widget"><div class="widget-body"><div class="row">
+                <div class="col-sm-5">
+                    <?php
+                    echo '<div class="form-group">
+                                            '.$this->formLabel($_formObj->get('name')).'
+                                            <div class="controls">
+                                             '.$this->formInput($_formObj->get('name')).'
+                                            </div>
+                                      </div>';
+                    ?>
+                </div>
+                
+                 <div class="col-sm-3">
+                    <?php
+                    echo '<div class="form-group">
+                                            '.$this->formLabel($_formObj->get('sort_order')).'
+                                            <div class="controls">
+                                             '.$this->formInput($_formObj->get('sort_order')).'
+                                            </div>
+                                      </div>';
+                    ?>
+                </div>
+                <div class="col-sm-4">
+                    <?php
+                    echo '<div class="form-group">
+                                            <div class="controls mt20">
+                                             '.$this->formCheckbox($_formObj->get('status')).' '.$this->formLabel($_formObj->get('status')).'
+                                            </div>
+                                      </div>';
+                    ?>
+                </div>
+                <div class="col-sm-12">
+                    <?php
+                    echo '<div class="form-group">
+                                            '.$this->formLabel($_formObj->get('describe')).'
+                                            <div class="controls">
+                                             '.$this->formTextarea($_formObj->get('describe')).'
+                                            </div>
+                                      </div>';
+                    ?>
+                </div>
+            </div>
+            </div>
+            </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-6 col-xs-12">
+                <div class="widget">
+                    <div class="widget-body">
+
+                        <label class="title-product-main text-no-bold block-display text-center ">
+                        <div class="form-title">Hoàn Thành</div></label>
+                        <div class="text-center">
+                        <?php
+                            echo $this->formButton($_formObj->get('SaveFieldset')->get('save'));
+                        ?>
+                        </div>
+                    </div>
+                    </div>
+                </div>        
+            </div>
+    </div>
+</div>
+</div>
+</form> 

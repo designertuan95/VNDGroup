@@ -1,0 +1,107 @@
+<div class="page-body">
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+
+        <div class="widget panel">
+           <div class="filters" context="filterandsavedsearch" define="{filterandsavedsearch: new Bizweb.FilterAndSavedSearch(this,{&quot;type_filter&quot;:&quot;products&quot;})}">
+                <ul class="filter-tab-list" id="filter-tab-list">
+                  <li class="filter-tab-item" data-tab-index="1">
+                    <a href="/admin/discounts" class="filter-tab filter-tab-active show-all-items">Tất cả khuyến mãi</a>
+                  </li>
+
+                  <li class="filter-tab-item" data-tab-index="2" data-tab-id="42949" data-tab-name="Đang khuyến mãi">
+                    <a href="discounts?savedSearchId=42949" class="filter-tab" bind-event-click="openSavedSearch(42949);">Đang khuyến mãi</a>
+                  </li>
+                  <li class="filter-tab-item" data-tab-index="3" data-tab-id="42950" data-tab-name="Đã kích hoạt">
+                    <a href="discounts?savedSearchId=42950" class="filter-tab" bind-event-click="openSavedSearch(42950);">Đã kích hoạt</a>
+                  </li>
+                  <li class="filter-tab-item" data-tab-index="4" data-tab-id="42951" data-tab-name="Chưa kích hoạt">
+                    <a href="discounts?savedSearchId=42951" class="filter-tab" bind-event-click="openSavedSearch(42951);">Chưa kích hoạt</a>
+                  </li>
+
+                  <li class="dropdown-container" id="hidden-search" style="display:none">
+                    <a class="dropdown-toggle btn-hidden-search filter-tab" data-toggle="dropdown">
+                      Xem thêm
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu arrow-style dropdown-hidden-search pull-right padding-sm" id="dropdown-hidden-search"></ul>
+                  </li>
+                </ul>
+            </div>
+            <div class="panel-body  bulk-action-context">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                          <th><label><input class="checkAll" name="idSanPham[]" type="checkbox"></label></th>
+                          <th>Chi tiết</th>
+                          <th>Số lần sử dụng</th>
+                          <th>Thời gian</th>
+                          <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+					<?php 
+					$xHtml = '';
+						foreach($this->listItem as $item)
+						{
+							$dateStart = date_create($item->date_start);
+							$dateEnd  = date_create($item->date_end);
+							$item->date_start = date_format($dateStart,'d-m-Y');
+							$item->date_end   = date_format($dateEnd,'d-m-Y');
+							$textStatus = ($item->status == 1) ? 'Ngưng' : 'Hoạt động' ;
+							$type = $item->discount.'đ';
+							if($item->type == 1){
+								$type = $item->discount.'%';
+							}if($item->type == 2){
+								$type = 'Miễn phí vận chuyển';
+							}
+							$urlEdit = $this->url ( 'AdminRoute/default', array (
+									'controller' => 'discounts',
+									'action' => 'changeStatus',
+									'id' => $item->coupon_id 
+							));
+							$urlDelete = $this->url ( 'AdminRoute/default', array (
+									'controller' => 'discounts',
+									'action' => 'delete',
+									'id' => $item->coupon_id
+							));
+							$xHtml .= sprintf('<tr>
+                              <td><label><input class="checkAll" name="idSanPham[]" type="checkbox"></label></td>
+                              <td>
+                              <div class="discount-bg"> 
+                                <div class="discount-inner">
+                                    <p class="discount-code">MÃ KHUYẾN MÃI: %s</p>
+                                    <p class="discount-desc">Giảm %s cho tất cả đơn hàng</p>
+                                </div>
+                                
+                 
+                                </div>
+                              </td>
+                              <td class="text-left">%s</td>
+                              <td> 
+                              <p class="discount-start"> Bắt đầu: <span class="date">%s</span></p>
+                               <p class="discount-end"> Kết thúc: <span class="date">%s</span></p>
+                              </td>
+                              <td class="text-right">
+                                  <div class="btn-group">
+                                    <a href="%s" class="btn btn-default btn-save-filter">%s</a>                                                    
+									<a href="%s" class="btn btn-default btn-del-filter"><i class="fa fa-trash-o"></i></a>
+                                  </div>
+
+                               </td>
+                        </tr>',$item->code,$type,$item->discount_usage_limit,$item->date_start,$item->date_end,$urlEdit,$textStatus,$urlDelete);
+						}
+					echo $xHtml;
+					?>
+                       
+                       
+                    </tbody>
+            </table>
+            </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,81 @@
+<?php
+$_formObj	= $this->_formObj;
+$arrForm = array(
+    array(
+        'Start_Layout' => '<div class="col-lg-8 col-sm-6 col-xs-12">',
+        'Widget' => array(
+            array(
+                'Start_Widget'   => '<div class="widget"><div class="widget-body">',
+                'Content_Widget' => array(
+                    // Box Search
+                    array(
+                        'Content_Box' => '<div class="form-group">
+			                                '.$this->formLabel($_formObj->get('name')).'
+			                                <div class="controls">
+			                                 '.$this->formInput($_formObj->get('name')).'
+			                                </div>
+			                          </div>',
+                    ),
+                    array(
+                        'Content_Box' => '<div class="form-group">
+                            '.$this->formLabel($_formObj->get('General')->get('describe')).'
+                            <div class="controls">
+                                  '.$this->formTextarea($_formObj->get('General')->get('describe')).'
+                              </div>
+                          </div>',
+                    ),
+                ),
+                'End_Widget'     => '</div></div>',
+            ),
+        ),
+        'End_Layout' => '</div>'
+    ),
+    array(
+        'Start_Layout' => '<div class="col-lg-4 col-sm-6 col-xs-12">',
+        'Widget' => array(
+            array(
+                'Start_Widget'   => '<div class="widget"><div class="widget-body">',
+                'Content_Widget' => array(
+                    array(
+                        'Content_Box' => '<div class="form-group">
+			                                '.$this->formLabel($_formObj->get('collection_group_id')).$this->formSelect($_formObj->get('collection_group_id')).'
+			                            </div>',
+                    ),
+                    array(
+                        'Content_Box' => '<div class="form-group">
+			                                <label class="text-no-bold"><label for="image">Hình ảnh</label></label>
+			                                <input type="file" name="image" class="form-control">
+			                            </div>',
+                    ),
+                ),
+                'End_Widget'     => '</div></div>',
+            ),
+            array(
+                'Start_Widget'   => '<div class="widget"><div class="widget-body">',
+                'Content_Widget' => array(
+                    // Box Search
+                    array(
+                        'Content_Box' => '<label class="title-product-main text-no-bold block-display text-center ">Hoàn thiện</label><div class="pd-t-20 border-top-title-main text-center">'.$this->formButton($_formObj->get('General')->get('save_and_new')).' '.$this->formButton($_formObj->get('General')->get('save')).'</div>',
+                    ),
+                ),
+                'End_Widget'     => '</div></div>',
+            ),
+        ),
+        'End_Layout' => '</div>'
+    ),
+);
+$FormObj = new \VND\ViewHelper\FormView($arrForm,array('type'=>'Admin'));
+?>
+<form method="post" action="">
+<div class="page-body">
+<div class="row">
+	<div class="col-lg-12 col-sm-12 col-xs-12">
+		<div class="row">
+			<?php
+				echo $FormObj->xHtml;
+			?>
+		</div>
+	</div>
+</div>
+</div>
+</form>

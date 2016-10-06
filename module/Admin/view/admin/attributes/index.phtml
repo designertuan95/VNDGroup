@@ -1,0 +1,143 @@
+<style type="text/css">.breadcrumb-action{display: none}</style>
+<?php if($this->data->count() == 0 && $this->listGroup->count() == 0): ?>
+<div class="panel-body text-center panel-no-item">
+  <div class="panel-no-item-header">
+    <h1>Website của bạn chưa có thuộc tính sản phẩm nào</h1>
+    <h4 class="text-muted">Hãy thêm thuộc tính sản phẩm mới để bắt đầu bán hàng ngay hôm nay nhé</h4>
+  </div>
+  <div class="panel-no-item-image"><img src="https://tien-nguye.bizwebvietnam.net/assets/images/icons/danhsachsanpham-10.svg"></div>
+  <div class="panel-no-item-btn">
+    <a class="btn btn-primary btn-lg" href="<?php echo $this->url('AdminRoute/default',array('controller' => 'attributes','action' => 'add-group')); ?>">Thêm thêm nhóm thuộc tính đầu tiên</a>
+    <a class="btn btn-primary btn-lg" href="<?php echo $this->url('AdminRoute/default',array('controller' => 'attributes','action' => 'add')); ?>">Thêm thêm thuộc tính đầu tiên</a>
+  </div>
+</div>
+<?php else: ?>
+    <!-- <pre>
+        <?php 
+            #print_r($Paginator);
+            ?>
+    </pre> -->
+
+<div class="page-body">
+<div class="row">
+    <form method="GET" action="/admin/attributes">
+    <div class="col-xs-6 col-md-6">
+        <div class="widget panel">
+           <div class="filters">
+                <ul class="filter-tab-list" id="filter-tab-list">
+                        <li class="filter-tab-item"><a href="#" class="filter-tab filter-tab-active">Nhóm thuộc tính</a></li>
+                        <li><a href="<?php echo $this->url('AdminRoute/default',array('controller' => 'attributes','action' => 'add-group')); ?>" class="dropdown-toggle btn-hidden-search filter-tab" >Thêm mới nhóm thuộc tính
+                        </a></li>
+                </ul>
+
+                <div class="filter-container">
+                    <div class="input-group input-group-sm">
+                      <input name="Query" type="text" class="form-control" placeholder="Nhập từ khóa tìm kiếm ...(Tên sản phẩm, Tên variant, SKU, Tag)">
+                      <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default" type="button" name="page" value="1">Tìm kiếm</button>
+                      </span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body  bulk-action-context">
+            <div class="table-responsive">
+                <table class=" table table-hover">
+                    <thead>
+                        <tr>
+                          <th class="col-sm-10">Nhóm thuộc tính</th>
+                          <th class="col-sm-2"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        $xHtml='';
+                        foreach($this->listGroup as $item)
+                        {
+                            $linkEdit = $this->url('AdminRoute/default',array('controller' => 'attributes','action' => 'edit-group','id' => $item->attribute_group_id));
+                            $linkDelete = $this->url('AdminRoute/default',array('controller' => 'attributes','action' => 'delete-group','id' => $item->attribute_group_id));
+                            $xHtml  .=  sprintf('<tr>
+                              <td><a href="%s">%s</a></td>
+                              
+                              <td><a href="%s" >Sửa</a> / <a href="%s" onclick="return confirm(\'Bạn có chắc chắn xóa\')">Xóa</a></td>
+                            </tr>',$linkEdit,$item->name,$linkEdit,$linkDelete);
+                        }
+                        echo $xHtml;
+                    ?>
+                    </tbody>
+            </table>
+            </div>
+            </div>
+
+            </div>
+        </div>
+    </form>
+    <form method="GET" action="">
+    <div class="col-xs-6 col-md-6">
+
+        <div class="widget panel">
+           <div class="filters">
+                <ul class="filter-tab-list" id="filter-tab-list">
+                    <li class="filter-tab-item" data-tab-index="1"><a href="#" class="filter-tab filter-tab-active">Thuộc tính</a></li>
+                     <li><a href="<?php echo $this->url('AdminRoute/default',array('controller' => 'attributes','action' => 'add')); ?>" class="dropdown-toggle btn-hidden-search filter-tab" >Thêm mới thuộc tính
+                    </a></li>
+
+                </ul>
+                <div class="filter-container">
+                    <div class="input-group input-group-sm">
+                      <input name="Query" type="text" class="form-control" placeholder="Nhập từ khóa tìm kiếm ...(Tên sản phẩm, Tên variant, SKU, Tag)">
+                      <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default" type="button" name="page" value="2">Tìm kiếm</button>
+                      </span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body  bulk-action-context">
+            <div class="table-responsive">
+                <table class=" table table-hover">
+	                <thead>
+	                  	<tr>
+		                  <th class="col-sm-5">Thuộc tính</th>
+		                  <th class="col-sm-5">Nhóm thuộc tính</th>
+                          <th class="col-sm-2"></th>
+	                	</tr>
+	                </thead>
+	                <tbody>
+                    <?php
+                        $xHtml='';
+                        foreach($this->data as $item)
+                        {
+                            $linkEdit = $this->url('AdminRoute/default',array('controller' => 'attributes','action' => 'edit','id' => $item->attribute_id));
+                            $linkDelete = $this->url('AdminRoute/default',array('controller' => 'attributes','action' => 'delete','id' => $item->attribute_id));
+                            $xHtml  .=  sprintf('<tr>
+                              <td><a href="%s">%s</a></td>
+                              <td>%s</td>
+                              <td><a href="%s" >Sửa</a> / <a href="%s" onclick="return confirm(\'Bạn có chắc chắn xóa\')">Xóa</a></td>
+                            </tr>',$linkEdit,$item->name,$item->group_name,$linkEdit,$linkDelete);
+                        }
+                        echo $xHtml;
+                    ?>
+	                    
+	                   
+	                </tbody>
+            </table>
+            </div>
+            <div class="row DTTTFooter">
+            <div class="col-sm-12">
+           
+<?php
+$currentUrl = $this->url('AdminRoute/paginator',array('controller' => 'attributes'));
+echo $this->paginationControl($this->Paginator,
+                                    'Sliding',
+                                    'paginator.phtml',array('currentUrl' => $currentUrl)); 
+                                    ?>
+            
+            </div>
+            </div>
+            </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<?php endif; ?>

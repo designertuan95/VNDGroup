@@ -1,0 +1,138 @@
+<div class="page-body">
+<form id="frmBulkActions" method="get" novalidate="novalidate"></form>
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+
+        <div class="widget panel">
+           <div class="filters" context="filterandsavedsearch" define="{filterandsavedsearch: new Bizweb.FilterAndSavedSearch(this,{&quot;type_filter&quot;:&quot;products&quot;})}">
+                <ul class="filter-tab-list" id="filter-tab-list">
+
+                        <li class="filter-tab-item" data-tab-index="1">
+                            <a href="/admin/products" class="filter-tab filter-tab-active">Tất cả sản phẩm</a>
+                        </li>
+                                        
+
+                    <li class="dropdown-container" id="hidden-search" style="display:none">
+                        <a class="dropdown-toggle btn-hidden-search filter-tab" data-toggle="dropdown">
+                            Xem thêm
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu arrow-style dropdown-hidden-search pull-right padding-sm" id="dropdown-hidden-search"></ul>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="panel-body  bulk-action-context">
+            <div class="table-responsive">
+                <table class=" table table-hover">
+	                <thead>
+	                  	<tr>
+		                  <th><input type="checkbox" id="checkAll"
+                                            onchange="BulkActions.addOrRemoveAllBulkActionItems(this)">
+                                            <div class="bulk-actions btn-group hide" all-items="4"
+                                                items-page="50" total-records="4">
+                                                <ul>
+                                                    <li><span class="selection-count bulk-action-items-count"
+                                                        selected-bulk-action-items="0"> Đã chọn <span
+                                                            class="display-bulk-action-items-count"></span> khách hàng
+                                                    </span></li>
+                                                    <li><span class="dropdown"> <a
+                                                            class="btn btn-default btn-sm dropdown-toggle"
+                                                            data-toggle="dropdown"> Chọn thao tác <span class="caret"></span>
+                                                        </a>
+                                                            <ul class="dropdown-menu arrow-style" role="menu">
+                                                                <li><a class="perform-publish" href="javascript:;"
+                                                                    onclick="BulkActions.publishItems('/admin/products/changeStatus')">Hiện</a></li>
+                                                                <li><a class="perform-publish" href="javascript:;"
+                                                                    onclick="BulkActions.UnpublishItems('/admin/products/changeStatus')">Ẩn</a></li>
+                                                                <li><a class="perform-remove-tags"
+                                                                    onclick="BulkActions.showModalDelete()">Xóa mục đã chọn</a></li>
+
+                                                                <li class="divider"></li>
+                                                                <li><a class="perform-remove-tags" href="javascript:;"
+                                                                    onclick="BulkActions.addProductGroup('/admin/products/addProductGroup')">Thêm
+                                                                        sản phẩm vào nhóm</a></li>
+                                                            </ul>
+                                                    </span></li>
+                                                </ul>
+                                                <span class="bulk-select-all">
+                                                    <p class="bulk-action-all-selector">
+                                                        <span class="bulk-action-all">Đã chọn tất cả đơn hàng của
+                                                            gian hàng.</span> <a class="multipage-selected-all hide"
+                                                            href="javascript:void(0);"
+                                                            bind-event-click="addBulkActionAll()">Chọn tất cả đơn
+                                                            hàng</a> <a class="clear-multipage-selection hide"
+                                                            href="javascript:void(0);"
+                                                            bind-event-click="removeBulkActionAll()">Bỏ chọn</a>
+                                                    </p>
+                                                </span>
+                                            </div></th>
+                                        
+		                  <th class="col-sm-3">Họ Tên</th>
+		                  <th class="col-sm-3">Email</th>
+		                  <th class="col-sm-2">Đơn hàng</th>
+		                  <th class="col-sm-2">Đơn hàng gần nhất</th>
+		                  <th class="col-sm-2">Tổng chi tiêu</th>
+	                	</tr>
+	                </thead>
+	                <tbody>
+                    <?php 
+                        $xHtml = '';
+                        foreach ($this->listItem as $item) {
+                            $urlEdit = $this->url('AdminRoute/default',array('controller'=>'customers','action'=>'edit','id' => $item->customer_id));
+                            $xHtml .= sprintf('<tr>
+                                    <td><input class="bulk-action-item" onchange="BulkActions.addOrRemoveBulkActionItem(%s,this)" value="%s" name="product_id[]" type="checkbox"></td>
+                                      <td>
+                                         <div class="title"><a href="%s">%s</a></div>
+                                      </td>
+                                      
+                                      
+                                      <td>%s</td>
+                                      <td><a href="">0</a></td>
+                                      <td>0</td>
+                                      <td>30.000</td>
+                                  </tr>',$item->customer_id,$item->customer_id,$urlEdit,$item->fullname,$item->email); 
+                        }
+                        echo $xHtml;
+                    ?>
+	                    
+	                   
+	                </tbody>
+            </table>
+            </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteProductModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close"
+                    type="button"></button>
+                <h4 class="modal-title">Bạn có muốn xóa ảnh sản phẩm này?</h4>
+            </div>
+            <div class="modal-body product-option-edit">
+                <p>Thao tác này sẽ xóa ảnh sản phẩm này của bạn. Thao tác này không
+                    thể khôi phục.</p>
+                <form class="form-delete-product-image">
+                    <input type="hidden" name="productId" value="" /> <input
+                        type="hidden" name="productImageId" value="" /> <input
+                        type="hidden" name="imgLink" value="" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="form-actions row">
+                    <div class="col-sm-5 pull-right text-right">
+                        <button class="btn btn-default btn-back close-modal"
+                            data-dismiss="modal" type="button">Hủy</button>
+                        <button class="btn btn-danger" type="button"
+                            onclick="BulkActions.deleteItems('/admin/customers/delete')">Xóa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

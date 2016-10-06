@@ -1,0 +1,118 @@
+<div class="page-body">
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+
+        <div class="widget panel">
+           <div class="filters" context="filterandsavedsearch" define="{filterandsavedsearch: new Bizweb.FilterAndSavedSearch(this,{&quot;type_filter&quot;:&quot;products&quot;})}">
+                <ul class="filter-tab-list" id="filter-tab-list">
+
+                        <li class="filter-tab-item" data-tab-index="1">
+                            <a href="/admin/products" class="filter-tab filter-tab-active">Tất cả sản phẩm</a>
+                        </li>
+                                        
+
+                    <li class="dropdown-container" id="hidden-search" style="display:none">
+                        <a class="dropdown-toggle btn-hidden-search filter-tab" data-toggle="dropdown">
+                            Xem thêm
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu arrow-style dropdown-hidden-search pull-right padding-sm" id="dropdown-hidden-search"></ul>
+                    </li>
+
+                </ul>
+
+                <div class="filter-container">
+                    <div class="btn-group btn-group-filter">
+                        <div class="btn-group">
+                            <a class="btn btn-default dropdown-toggle btn-filter">
+                                Điều kiện lọc
+                                <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu arrow-style dropdown-filter">
+                                <div class="arrow"></div>
+                                <div class="filters">
+                                    <label class="filter-title">Hiển thị sản phẩm theo:</label>
+                                    <div class="filter-content">
+                                        <select class="form-control form-selectboxit" bind="filterKey" bind-event-change="resetFilter()" id="filter-conditions">
+                                            <option>Chọn điều kiện lọc...</option>
+                                            <option value="visibility">Hiển thị</option>
+                                            <option value="productType">Loại sản phẩm</option>
+                                            <option value="vendor">Nhà cung cấp</option>
+                                            <option value="tag">Đã được tag với</option>
+                                        </select>
+                                        <div class="inline filter-choose hide" bind-show="filterKey == 'visibility'">
+                                            <select class="form-control form-selectboxit filter-select" bind="option">
+                                                <option value="">Chọn điều kiện lọc...</option>
+                                                <option value="visibility">Hiển thị</option>
+                                                <option value="hidden">Ẩn</option>
+                                            </select>
+                                            <input type="button" class="btn btn-default add-filter filtering-complete" value="Lọc" bind-event-click="submitFilter(this)">
+                                        </div>
+                                        <div class="inline filter-choose hide" bind-show="filterKey == 'productType'">
+                                            <select class="form-control form-selectboxit filter-select" bind="option">
+                                                <option value="">Chọn điều kiện lọc...</option>
+                                            </select>
+                                            <input type="button" class="btn btn-default add-filter filtering-complete" value="Lọc" bind-event-click="submitFilter(this)">
+                                        </div>
+                                        <div class="inline filter-choose hide" bind-show="filterKey == 'vendor'">
+                                            <select class="form-control form-selectboxit filter-select" bind="option">
+                                                <option value="">Chọn điều kiện lọc...</option>
+                                            </select>
+                                            <input type="button" class="btn btn-default add-filter filtering-complete" value="Lọc" bind-event-click="submitFilter(this)">
+                                        </div>
+                                        <div class="inline filter-choose hide" bind-show="filterKey == 'tag'">
+                                            <input type="text" class="form-control inline filter-input" bind="value" bind-class="{error: isValid}">
+                                            <input type="button" class="btn btn-default add-filter filtering-complete" value="Lọc" bind-event-click="submitFilter(this)">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="search-container">
+                            <input type="text" class="form-control form-large search-input" placeholder="Nhập từ khóa tìm kiếm ...(Tên sản phẩm, Tên variant, SKU, Tag)" bind="query" bind-event-change="submitQuery()" value="">
+                        </div>
+                    </div>
+                    <div class="btn-group btn-group-filter">
+                        <div class="btn-group">
+                            <div class="bootstrap-tagsinput" style="border:0;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body  bulk-action-context">
+            <div class="table-responsive">
+                <table class=" table table-hover">
+	                <thead>
+	                  	<tr>
+		                  <th><label><input class="checkAll" name="idSanPham[]" type="checkbox"></label></th>
+		                  <th class="col-sm-10">Tiêu đề </th>
+		                  <th class="col-sm-2">Ngày tạo</th>
+	                	</tr>
+	                </thead>
+	                <tbody>
+	                    <tr>
+		                  <td><label><input class="checkAll" name="idSanPham[]" type="checkbox"></label></td>
+		                  <td>
+		                  <div class="title text-left">
+                            <div class="thumb"><img src="https://djvietnamshop.bizwebvietnam.net/assets/images/no-image-50-50.png" width="50" height="50"></div>
+		                    <a href="bep-tu-faster-fs-741-g">Bếp từ Faster FS 741 G</a>                  </div>
+		                  <div class="actionItem">
+		                    <a title="Chỉnh sửa bài đăng" href="admin.php?c=sanpham&amp;a=edit&amp;id=1269">Chỉnh sửa</a>                    &nbsp;|&nbsp;
+		                    <a href="#" target="">Xem</a>&nbsp;|&nbsp;
+		                     <a title="Chỉnh sửa bài đăng" href="admin.php?c=sanpham&amp;a=delete&amp;id=1269">Xóa</a>                  </div>
+
+		                  </td>
+		                  <td>04/09/2016 09:45</td>
+		                </tr>
+	                   
+	                </tbody>
+            </table>
+            </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

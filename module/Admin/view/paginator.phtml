@@ -1,0 +1,17 @@
+<?php
+if($this->pageCount > 1){ 
+	$url = $this->currentUrl;
+	$linkNext = ($this->current != $this->last) ? '<li class="next"><a href="'.$url . $this->next.'">Next</a></li>' : '';
+	$linkPrevious = ($this->current != $this->first) ? '<li class="next"><a href="'.$url . $this->previous.'">Prev</a></li>' : '' ;
+
+	$linkFirst = ($this->current > $this->first ) ? '<li class="next"><a href="'.$url . $this->first.'">First</a></li>' : '' ;
+	$linkLast = ($this->current < $this->last ) ? '<li class="next"><a href="'.$url . $this->last.'">Last</a></li>' : '' ;
+	$xHtml = '<div class="dataTables_paginate " id="editabledatatable_paginate"><ul class="pagination-vnd">'.$linkPrevious;
+	foreach($this->pagesInRange as $page){
+		$classActive = ($this->current == $page) ? 'class="active"' : '';
+		$xHtml .= sprintf('<li  %s><a href="%s">%s</a></li>', $classActive, $url. $page, $page);
+	}
+	$xHtml .=$linkNext. '</ul></div>';
+	echo $xHtml;
+}
+?>

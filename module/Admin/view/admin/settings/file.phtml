@@ -1,0 +1,124 @@
+<div class="page-body">
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+
+        <div class="widget panel">
+           <div class="filters">
+                <ul class="filter-tab-list" id="filter-tab-list">
+
+                        <li class="filter-tab-item" data-tab-index="1">
+                            <a href="/admin/products" class="filter-tab filter-tab-active">Táº¥t cáº£ sáº£n pháº©m</a>
+                        </li>
+                                        
+
+                    <li class="dropdown-container" id="hidden-search" style="display:none">
+                        <a class="dropdown-toggle btn-hidden-search filter-tab" data-toggle="dropdown">
+                            Xem thÃªm
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu arrow-style dropdown-hidden-search pull-right padding-sm" id="dropdown-hidden-search"></ul>
+                    </li>
+
+                </ul>
+
+                <div class="filter-container">
+                    <div class="btn-group btn-group-filter">
+                        
+                        <div class="search-container">
+                            <input type="text" class="form-control form-large search-input" placeholder="Nháº­p tá»« khÃ³a tÃ¬m kiáº¿m ...(TÃªn sáº£n pháº©m, TÃªn variant, SKU, Tag)" bind="query" bind-event-change="submitQuery()" value="">
+                        </div>
+                    </div>
+                    <div class="btn-group btn-group-filter">
+                        <div class="btn-group">
+                            <div class="bootstrap-tagsinput" style="border:0;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body  bulk-action-context">
+            <div class="table-responsive">
+                            <table class="table table-hover vert-align" id="all-files">
+                                <colgroup>
+                                    <col>
+                                    <col style="width:10%;">
+                                    <col style="max-width:20%;">
+                                    <col style="width:45%;">
+                                    <col style="width:15%;">
+                                    <col style="">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th class="select select-all">
+                                            <span><input type="checkbox" class="js-no-dirty all-bulk-action" bind-event-change="addOrRemoveAllBulkActionItems(this)"></span>
+                                            <div class="bulk-actions btn-group hide" all-items="1" items-page="50" total-records="1">
+                                                <ul>
+                                                    <li>
+                                                        <span class="selection-count bulk-action-items-count" selected-bulk-action-items="0">
+                                                            Ä�Ã£ chá»�n <span class="display-bulk-action-items-count"></span> file
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="dropdown">
+                                                            <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                                Chá»�n thao tÃ¡c
+                                                                <span class="caret"></span>
+                                                            </a>
+                                                            <ul class="dropdown-menu arrow-style" role="menu">
+                                                                <li><a define="{urlBulkActionDelete:'/admin/settings/files/bulkdelete'}" class="perform-delete" href="javascript:void(0);" bind-event-click="showDeleteItemsModal()">XÃ³a file</a></li>
+                                                            </ul>
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                                <span class="bulk-select-all">
+                                                    <p class="bulk-action-all-selector">
+                                                        <span class="bulk-action-all"></span>
+                                                        <a class="multipage-selected-all hide" href="javascript:void(0);" bind-event-click="addBulkActionAll()">Chá»�n táº¥t cáº£ file</a>
+                                                        <a class="clear-multipage-selection hide" href="javascript:void(0);" bind-event-click="removeBulkActionAll()">Bá»� chá»�n</a>
+                                                    </p>
+                                                </span>
+                                            </div>
+
+                                        </th>
+                                        <th></th>
+                                        <th>TÃªn File</th>
+                                        <th>Ä�Æ°á»�ng dáº«n</th>
+                                        <th>Dung lÆ°á»£ng</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <tr>
+                                            <td class="select">
+                                                <input type="checkbox" value="9666331" name="ids" bind-event-change="addOrRemoveBulkActionItem(9666331,this)" id="bulk-action-9666331" class="bulk-action-item">
+                                            </td>
+                                            <td>
+                                                    <a href="javascript:void(0)" bind-event-click="previewImage('//bizweb.dktcdn.net/thumb/large/100/123/453/files/user-h6mne8eq.jpg?v=1473148208210')">
+                                                        <img class="product-thumb" src="//bizweb.dktcdn.net/thumb/thumb/100/123/453/files/user-h6mne8eq.jpg?v=1473148208210">
+                                                    </a>
+                                            </td>
+                                            <td>
+                                                    <a href="javascript:void(0)" bind-event-click="previewImage('//bizweb.dktcdn.net/thumb/large/100/123/453/files/user-h6mne8eq.jpg?v=1473148208210')">
+                                                        user-h6mne8eq.jpg
+                                                    </a>
+                                            </td>
+                                            <td>
+                                                <input style="width: 100%;" readonly="readonly" type="text" value="https://bizweb.dktcdn.net/100/123/453/files/user-h6mne8eq.jpg?v=1473148208210" bind-event-click="$(this).select()">
+                                            </td>
+                                            <td>
+                                                    66.81 KB
+                                            </td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a href="javascript:void(0)" class="btn btn-white"><i style="    font-size: 20px;" class="fa fa-trash-o"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+<div class="page-body">
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+
+        <div class="widget panel">
+           <div class="filters" context="filterandsavedsearch" define="{filterandsavedsearch: new Bizweb.FilterAndSavedSearch(this,{&quot;type_filter&quot;:&quot;products&quot;})}">
+                <ul class="filter-tab-list" id="filter-tab-list">
+                  <li class="filter-tab-item" data-tab-index="1">
+                    <a href="/admin/orders" class="filter-tab filter-tab-active show-all-items">Tất cả đơn hàng</a>
+                  </li>
+
+                  <li class="filter-tab-item" data-tab-index="2" data-tab-id="42943" data-tab-name="Đơn hàng mở">
+                    <a href="orders?savedSearchId=42943" class="filter-tab" bind-event-click="openSavedSearch(42943);">Đơn hàng mở</a>
+                  </li>
+                  <li class="filter-tab-item" data-tab-index="3" data-tab-id="42944" data-tab-name="Chưa thanh toán">
+                    <a href="orders?savedSearchId=42944" class="filter-tab" bind-event-click="openSavedSearch(42944);">Chưa thanh toán</a>
+                  </li>
+                  <li class="filter-tab-item" data-tab-index="4" data-tab-id="42945" data-tab-name="Chưa giao hàng">
+                    <a href="orders?savedSearchId=42945" class="filter-tab" bind-event-click="openSavedSearch(42945);">Chưa giao hàng</a>
+                  </li>
+                  <li class="filter-tab-item" data-tab-index="5" data-tab-id="42946" data-tab-name="Lưu trữ">
+                    <a href="orders?savedSearchId=42946" class="filter-tab" bind-event-click="openSavedSearch(42946);">Lưu trữ</a>
+                  </li>
+
+                  <li class="dropdown-container" id="hidden-search" style="display:none">
+                    <a class="dropdown-toggle btn-hidden-search filter-tab" data-toggle="dropdown">
+                      Xem thêm
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu arrow-style dropdown-hidden-search pull-right padding-sm" id="dropdown-hidden-search"></ul>
+                  </li>
+                </ul>
+
+                <div class="filter-container">
+                    <div class="btn-group btn-group-filter">
+                        <div class="btn-group">
+                            <a class="btn btn-default dropdown-toggle btn-filter">
+                                Điều kiện lọc
+                                <span class="caret"></span>
+                            </a>
+                          
+                        </div>
+                        <div class="search-container">
+                            <input type="text" class="form-control form-large search-input" placeholder="Nhập từ khóa tìm kiếm ...(Tên sản phẩm, Tên variant, SKU, Tag)" bind="query" bind-event-change="submitQuery()" value="">
+                        </div>
+                    </div>
+                    <div class="btn-group btn-group-filter">
+                        <div class="btn-group">
+                            <div class="bootstrap-tagsinput" style="border:0;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body  bulk-action-context">
+            <div class="table-responsive">
+                <table class=" table table-hover">
+	                <thead>
+                      <tr>
+                        <th class="select select-all not-select">
+                          <label><input class="checkAll" name="idSanPham[]" type="checkbox"></label>
+                        </th>
+                        <th>Đơn hàng</th>
+                        <th>Ngày đặt</th>
+                        <th>Khách hàng</th>
+                        <th>Thanh toán</th>
+                        <th>Giao hàng</th>
+                        <th style="text-align: right;">Tổng tiền</th>
+                      </tr>
+                    </thead>
+	                <tbody>
+                      <tr>
+                        <td class="select"><label><input class="checkAll" name="idSanPham[]" type="checkbox"></label></td>
+                        <td class="title"><a href="/admin/orders/3093791">#1001</a></td>
+                        <td>04/09/2016 20:46</td>
+                        <td>Tuấn Nguyễn Văn</td>
+                        <td><span class="label label-default">Đã thanh toán</span></td>
+                        <td><span class="label label-warning">Chưa chuyển</span></td>
+                        <td class="total" style="text-align: right;">80.000 ₫</td>
+                      </tr>
+                    </tbody>
+            </table>
+            </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

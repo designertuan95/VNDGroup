@@ -1,0 +1,81 @@
+<?php if($this->countItem == 0): ?>
+<div class="panel-body text-center panel-no-item">
+  <div class="panel-no-item-header">
+    <h1>Website của bạn chưa có bộ lọc nào</h1>
+    <h4 class="text-muted">Hãy thêm bộ lọc mới để bắt đầu bán hàng ngay hôm nay nhé</h4>
+  </div>
+  <div class="panel-no-item-image"><img src="https://tien-nguye.bizwebvietnam.net/assets/images/icons/danhsachsanpham-10.svg"></div>
+  <div class="panel-no-item-btn">
+    <a class="btn btn-primary btn-lg" href="<?php echo $this->url('AdminRoute/default',array('controller' => 'filters','action' => 'add')); ?>">Thêm thêm bộ lọc đầu tiên</a>
+   
+  </div>
+</div>
+<?php else: ?>
+<div class="page-body">
+<div class="row">
+    <form method="GET" action="">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget panel">
+           <div class="filters">
+                <ul class="filter-tab-list" id="filter-tab-list">
+                    <li class="filter-tab-item" data-tab-index="1"><a href="#" class="filter-tab filter-tab-active">Bộ lọc nâng cao</a></li>
+                </ul>
+                <div class="filter-container">
+                    <div class="input-group input-group-sm">
+                        <?php 
+                            $xHtml = $this->formInput($this->form->get('Query'));
+                            $xHtml .= '<span class="input-group-btn">'.$this->formButton($this->form->get('type')).'</span>';
+                            echo $xHtml; 
+                        ?>
+                      
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body  bulk-action-context">
+            <div class="table-responsive">
+                <table class=" table table-hover">
+	                <thead>
+	                  	<tr>
+		                  <th class="col-sm-5">Nhóm bộ lọc</th>
+		                  <th class="col-sm-5">Order</th>
+                      <th class="col-sm-2"></th>
+	                	</tr>
+	                </thead>
+	                <tbody>
+                    <?php
+                        $xHtml='';
+                        foreach($this->listFilter as $item)
+                        {
+                            $linkEdit = $this->url('AdminRoute/default',array('controller' => 'filters','action' => 'edit','id' => $item->filter_id));
+
+                            $linkDelete = $this->url('AdminRoute/default',array('controller' => 'filters','action' => 'delete','id' => $item->filter_id));
+                            $xHtml  .=  sprintf('<tr>
+                              <td><a href="%s">%s</a></td>
+                              <td>%s</td>
+                              <td><a href="%s" >Sửa</a> / <a href="%s" onclick="return confirm(\'Bạn có chắc chắn xóa\')">Xóa</a></td>
+                            </tr>',$linkEdit,$item->name,$item->sort_order,$linkEdit,$linkDelete);
+                        }
+                        echo $xHtml;
+                    ?>                   
+	                   
+	                </tbody>
+            </table>
+            </div>
+            <div class="row DTTTFooter">
+            <div class="col-sm-12">
+           <?php
+$currentUrl = $this->url('AdminRoute/paginator',array('controller' => 'filters'));
+echo $this->paginationControl($this->Paginator,
+                            'Sliding',
+                            'paginator.phtml',array('currentUrl' => $currentUrl)); 
+                            ?>        
+            </div>
+            </div>
+            </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<?php endif; ?>

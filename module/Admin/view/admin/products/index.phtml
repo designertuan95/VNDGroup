@@ -1,0 +1,244 @@
+<?php if($this->listItem->count() == 0 && !isset($_GET['Query'])): ?>
+<div class="panel-body text-center panel-no-item">
+	<div class="panel-no-item-header">
+		<h1>Website của bạn chưa có sản phẩm nào</h1>
+		<h4 class="text-muted">Hãy thêmsản phẩm mới để bắt đầu bán hàng ngay
+			hôm nay nhé</h4>
+	</div>
+	<div class="panel-no-item-image">
+		<img
+			src="https://tien-nguye.bizwebvietnam.net/assets/images/icons/danhsachsanpham-10.svg">
+	</div>
+	<div class="panel-no-item-btn">
+		<a class="btn btn-primary btn-lg"
+			href="<?php echo $this->url('AdminRoute/default',array('controller' => 'products','action' => 'add')); ?>">Thêm
+			sản phẩm đầu tiên</a>
+	</div>
+</div>
+<?php else: ?>
+<div class="page-body">
+	<form id="frmBulkActions" method="get" novalidate="novalidate"></form>
+<?php
+	// echo $this->sqlSelect;
+	$xHtml = '';
+	foreach ( $this->listItem as $item ) {
+		$urlEdit = $this->url ( 'AdminRoute/default', array (
+				'controller' => 'products',
+				'action' => 'edit',
+				'id' => $item->product_id 
+		));
+		$urlDelete = $this->url ( 'AdminRoute/default', array (
+				'controller' => 'products',
+				'action' => 'delete',
+				'id' => $item->product_id 
+		) );
+		
+		$xHtml .= sprintf ( '<tr>
+                          <td><input class="bulk-action-item" onchange="%s" value="%s" name="product_id[]" type="checkbox"></td>
+                          <td colspan="2"><div class="thumb"><img src="%s" width="50" height="50"></div>
+                          </td>
+                          <td>
+                          <div class="title"><a href="%s">%s</a></div>
+                          <div class="actionItem">
+                            <a title="Chỉnh sửa bài đăng" href="%s">Chỉnh sửa</a>&nbsp;|&nbsp;
+                            <a href="#" target="">Xem</a>&nbsp;|&nbsp;
+                             <a title="Chỉnh sửa bài đăng" href="%s">Xóa</a>                  
+                             </div>
+                          </td>
+                          <td>%s</td>
+                          <td>%s</td>
+                          <td>%s</td>
+                    </tr>', "BulkActions.addOrRemoveBulkActionItem($item->product_id,this)", $item->product_id, $item->image, $urlEdit, $item->product_name, $urlEdit, $urlDelete, number_format ( $item->price ), $item->quantity, $item->producer_name );
+	}
+	?>
+
+<div class="row">
+		<div class="col-xs-12 col-md-12">
+
+			<div class="widget panel">
+
+				<div class="filters">
+					<ul class="filter-tab-list" id="filter-tab-list">
+
+						<li class="filter-tab-item" data-tab-index="1"><a
+							href="/admin/products" class="filter-tab filter-tab-active">Tất
+								cả sản phẩm</a></li>
+
+
+						<li class="dropdown-container" id="hidden-search"
+							style="display: none"><a
+							class="dropdown-toggle btn-hidden-search filter-tab"
+							data-toggle="dropdown"> Xem thêm <span class="caret"></span>
+						</a>
+							<ul
+								class="dropdown-menu arrow-style dropdown-hidden-search pull-right padding-sm"
+								id="dropdown-hidden-search"></ul></li>
+
+					</ul>
+					
+					<div class="filter-container">
+					<form method="GET" action="/admin/products/" id="filterActions">
+						<div class="filter-content">
+							<div class="row">
+
+								<div class="col-sm-10">
+									<div class="form-group input-group-sm">
+										<?php echo $this->formInput($this->_formObj->get('Query')); ?>
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<div class="form-group input-group-sm">
+																		
+									<?php echo $this->formSelect($this->_formObj->get('filter_status')); ?>
+										
+									</div>
+
+								</div>
+								<div class="col-sm-4">
+
+									<div class="form-group input-group-sm">
+
+									<?php echo $this->formSelect($this->_formObj->get('filter_collection')); ?>
+										
+									</div>
+								</div>
+								<div class="col-sm-3">
+
+									<div class="form-group input-group-sm">
+									<?php echo $this->formSelect($this->_formObj->get('filter_group_product')); ?>
+										
+									</div>
+								</div>
+
+								<div class="col-sm-3">
+									<div class="form-group input-group-sm">
+									<?php echo $this->formSelect($this->_formObj->get('filter_vendor')); ?>
+										
+									</div>
+								</div>
+
+								<div class="col-sm-2">
+									<div class="form-group input-group-sm">
+										<button type="button" onclick="FilterAndSavedSearch.submitFilter()" id="button-filter"
+											class="btn btn-primary btn-sm">
+											<i class="fa fa-filter"></i> Lọc sản phẩm
+										</button>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+											
+					</form>
+					</div>
+					<div class="panel-body  bulk-action-context">
+					<?php if($this->listItem->count() == 0 && isset($_GET['Query'])): ?>
+					<div class="panel-body text-center" >
+                        <p style="font-size: 64px;"><i class="fa fa-tag text-muted"></i></p><h3>Không tìm thấy sản phẩm phù hợp với điều kiện tìm kiếm</h3>
+                        <p class="text-muted">Thử thay đổi điều kiện lọc hoặc từ khóa tìm kiếm</p>
+                    </div>
+                    <?php else: ?>
+						<div class="table-responsive">
+							<table class=" table table-hover">
+								<thead>
+									<tr>
+										<th><input type="checkbox" id="checkAll"
+											onchange="BulkActions.addOrRemoveAllBulkActionItems(this)">
+											<div class="bulk-actions btn-group hide" all-items="4"
+												items-page="50" total-records="4">
+												<ul>
+													<li><span class="selection-count bulk-action-items-count"
+														selected-bulk-action-items="0"> Đã chọn <span
+															class="display-bulk-action-items-count"></span> thuộc
+															tính
+													</span></li>
+													<li><span class="dropdown"> <a
+															class="btn btn-default btn-sm dropdown-toggle"
+															data-toggle="dropdown"> Chọn thao tác <span class="caret"></span>
+														</a>
+															<ul class="dropdown-menu arrow-style" role="menu">
+																<li><a class="perform-publish" href="javascript:;"
+																	onclick="BulkActions.publishItems('/admin/products/changeStatus')">Hiện</a></li>
+																<li><a class="perform-publish" href="javascript:;"
+																	onclick="BulkActions.UnpublishItems('/admin/products/changeStatus')">Ẩn</a></li>
+																<li><a class="perform-remove-tags"
+																	onclick="BulkActions.showModalDelete()">Xóa mục đã chọn</a></li>
+
+																<li class="divider"></li>
+																<li><a class="perform-remove-tags" href="javascript:;"
+																	onclick="BulkActions.addProductGroup('/admin/products/addProductGroup')">Thêm
+																		sản phẩm vào nhóm</a></li>
+															</ul>
+													</span></li>
+												</ul>
+												<span class="bulk-select-all">
+													<p class="bulk-action-all-selector">
+														<span class="bulk-action-all">Đã chọn tất cả đơn hàng của
+															gian hàng.</span> <a class="multipage-selected-all hide"
+															href="javascript:void(0);"
+															bind-event-click="addBulkActionAll()">Chọn tất cả đơn
+															hàng</a> <a class="clear-multipage-selection hide"
+															href="javascript:void(0);"
+															bind-event-click="removeBulkActionAll()">Bỏ chọn</a>
+													</p>
+												</span>
+											</div></th>
+										<th colspan="2"></th>
+										<th class="col-sm-6">Sản phẩm</th>
+										<th class="col-sm-2">Giá bán</th>
+										<th class="col-sm-2">Kho hàng</th>
+										<th class="col-sm-2">Nhà cung cấp</th>
+									</tr>
+								</thead>
+								<tbody>
+                        			<?php echo $xHtml; ?>
+	                			</tbody>
+							</table>
+					</div>
+					<?php endif; ?>
+            <?php
+	$currentUrl = $this->url ( 'AdminRoute/paginator', array (
+			'controller' => 'products' 
+	) );
+	echo $this->paginationControl ( $this->Paginator, 'Sliding', 'paginator.phtml', array (
+			'currentUrl' => $currentUrl 
+	) );
+	?>
+            </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="deleteProductModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button aria-hidden="true" data-dismiss="modal" class="close"
+					type="button"></button>
+				<h4 class="modal-title">Bạn có muốn xóa ảnh sản phẩm này?</h4>
+			</div>
+			<div class="modal-body product-option-edit">
+				<p>Thao tác này sẽ xóa ảnh sản phẩm này của bạn. Thao tác này không
+					thể khôi phục.</p>
+				<form class="form-delete-product-image">
+					<input type="hidden" name="productId" value="" /> <input
+						type="hidden" name="productImageId" value="" /> <input
+						type="hidden" name="imgLink" value="" />
+				</form>
+			</div>
+			<div class="modal-footer">
+				<div class="form-actions row">
+					<div class="col-sm-5 pull-right text-right">
+						<button class="btn btn-default btn-back close-modal"
+							data-dismiss="modal" type="button">Hủy</button>
+						<button class="btn btn-danger" type="button"
+							onclick="BulkActions.deleteItems('/admin/products/delete')">Xóa</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php endif; ?>
